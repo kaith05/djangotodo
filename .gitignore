@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 仮想環境
+.venv/
+venv/
+
+# SQLite（使っているなら）
+*.sqlite3
+
+# VSCode/settings etc
+.vscode/
+
+# OS系
+.DS_Store
