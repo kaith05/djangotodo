@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>ToDoリスト</title>
-</head>
-<body>
-    <h1>ToDoリスト</h1>
+{% extends 'base.html' %}
 
-    <form method="POST" action="{% url 'add_task' %}">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="新しいタスク">
-        <button type="submit">追加</button>
-    </form>
+{% block title %}タスク一覧{% endblock %}
 
-    <ul>
-        {% for task in tasks %}
-            <li>
-                {{ task.title }}
-                <a href="{% url 'delete_task' task.id %}">削除</a>
-            </li>
-        {% empty %}
-            <li>タスクはありません</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block content %}
+<h2>タスク一覧</h2>
+<div class="task-list">
+    {% for task in tasks %}
+        <p>{{ task.title }}
+            <a href="{% url 'task_update' task.pk %}">編集</a>
+            <a href="{% url 'task_delete' task.pk %}">削除</a>
+        </p>
+    {% endfor %}
+</div>
+{% endblock %}
