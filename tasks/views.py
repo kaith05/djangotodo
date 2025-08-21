@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Task
 from .forms import TaskForm
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 def task_list(request):
     tasks = Task.objects.all()
@@ -15,6 +17,14 @@ def task_create(request):
     else:
         form = TaskForm()
     return render(request, 'tasks/task_form.html', {'form': form})
+
+def toggle_task_completion(request, pk):
+    if request.method == 'POST':
+        task = get_object_or_404(Task, pk=pk)
+        task.completed = not task.completed
+        task.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
 
 def task_update(request, pk):
     task = get_object_or_404(Task, pk=pk)

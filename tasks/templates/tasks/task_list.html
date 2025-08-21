@@ -1,15 +1,123 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}タスク一覧{% endblock %}
+{% block title %}とどリスト{% endblock %}
 
 {% block content %}
-<h2>タスク一覧</h2>
+<link rel="stylesheet" href="{% static 'tasks/task_list.css' %}">
+
+<div class="task-header">
+    <h2>タスク一覧</h2>
+    <a href="{% url 'task_create' %}" class="btn btn-primary">新しいタスクを追加</a>
+</div>
+
+<div class="task-filters">
+    <button class="filter-btn active" data-filter="all">すべて</button>
+    <button class="filter-btn" data-filter="pending">未完了</button>
+    <button class="filter-btn" data-filter="completed">完了済み</button>
+</div>
+
 <div class="task-list">
     {% for task in tasks %}
-        <p>{{ task.title }}
-            <a href="{% url 'task_update' task.pk %}">編集</a>
-            <a href="{% url 'task_delete' task.pk %}">削除</a>
-        </p>
+        <div class="task-item {% if task.completed %}task-completed{% endif %}" data-priority="{{ task.priority }}">
+            <div class="task-main">
+                <div class="task-checkbox">
+                    <input type="checkbox" 
+                           id="task-{{ task.pk }}" 
+                           {% if task.completed %}checked{% endif %}
+                           onchange="toggleTaskCompletion({{ task.pk }})">
+                    <label for="task-{{ task.pk }}"></label>
+                </div>
+                
+                <div class="task-content">
+                    <h3 class="task-title">{{ task.title }}</h3>
+                    {% if task.description %}
+                        <p class="task-description">{{ task.description }}</p>
+                    {% endif %}
+                    
+                    <div class="task-meta">
+                        <span class="task-date">
+                            <i class="icon-calendar"></i>
+                            {{ task.created_at|date:"Y/m/d H:i" }}
+                        </span>
+                        
+                        <span class="task-priority priority-{{ task.priority }}">
+                            {% if task.priority == 1 %}
+                                <i class="icon-low"></i> 低
+                            {% elif task.priority == 2 %}
+                                <i class="icon-medium"></i> 中
+                            {% else %}
+                                <i class="icon-high"></i> 高
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="task-actions">
+                <a href="{% url 'task_update' task.pk %}" class="btn btn-edit" title="編集">
+                    <i class="icon-edit"></i>
+                </a>
+                <a href="{% url 'task_delete' task.pk %}" class="btn btn-delete" title="削除" 
+                   onclick="return confirm('本当に削除しますか？')">
+                    <i class="icon-delete"></i>
+                </a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <p>まだタスクがありません。</p>
+            <a href="{% url 'task_create' %}" class="btn btn-primary">最初のタスクを作成</a>
+        </div>
     {% endfor %}
 </div>
+
+<script>
+// タスクの完了状態を切り替える関数（AJAX実装例）
+function toggleTaskCompletion(taskId) {
+    fetch(`/tasks/${taskId}/toggle/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // ページを再読み込みするか、動的にUI更新
+            location.reload();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// フィルタリング機能
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const taskItems = document.querySelectorAll('.task-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.dataset.filter;
+            
+            // アクティブボタンを切り替え
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // タスクをフィルタリング
+            taskItems.forEach(item => {
+                const isCompleted = item.classList.contains('task-completed');
+                let show = true;
+                
+                if (filter === 'completed' && !isCompleted) show = false;
+                if (filter === 'pending' && isCompleted) show = false;
+                
+                item.style.display = show ? 'flex' : 'none';
+            });
+        });
+    });
+});
+</script>
+
 {% endblock %}

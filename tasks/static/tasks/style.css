@@ -1,11 +1,11 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
 }
 
 header {
-    background: #007bff;
+    background: #428cdc;
     color: white;
     padding: 15px;
 }
@@ -29,8 +29,16 @@ main {
 }
 
 footer {
-    background: #eee;
+    background: #808080;
     text-align: center;
     padding: 10px;
     margin-top: 20px;
+}
+
+button {
+    background-color: #428cdc;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
 }
