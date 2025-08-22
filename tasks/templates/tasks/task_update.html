@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}タスクの編集{% endblock %}
+
+{% block content %}
+<h2>タスクの編集</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title" value="{{ form.title.value }}" required>
+    </div>
+    <div class="form-group">
+        <label for="description">概要</label>
+        <textarea id="description" name="description">{{ form.description.value }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="priority">優先度</label>
+        <select id="priority" name="priority">
+            <option value="1" {% if form.priority.value == 1 %}selected{% endif %}>低</option>
+            <option value="2" {% if form.priority.value == 2 %}selected{% endif %}>中</option>
+            <option value="3" {% if form.priority.value == 3 %}selected{% endif %}>高</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">更新</button>
+</form>
+{% endblock %}

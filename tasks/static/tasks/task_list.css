@@ -1,18 +1,3 @@
-/* タスクリストのスタイル */
-.task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #e9ecef;
-}
-
-.task-header h2 {
-    margin: 0;
-    color: #2c3e50;
-}
-
 .task-filters {
     display: flex;
     gap: 0.5rem;
@@ -21,7 +6,7 @@
 
 .filter-btn {
     padding: 0.5rem 1rem;
-    border: 2px solid #dee2e6;
+    border: 2px solid #151616;
     background: white;
     border-radius: 25px;
     cursor: pointer;

@@ -6,11 +6,6 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'tasks/task_list.css' %}">
 
-<div class="task-header">
-    <h2>タスク一覧</h2>
-    <a href="{% url 'task_create' %}" class="btn btn-primary">新しいタスクを追加</a>
-</div>
-
 <div class="task-filters">
     <button class="filter-btn active" data-filter="all">すべて</button>
     <button class="filter-btn" data-filter="pending">未完了</button>
