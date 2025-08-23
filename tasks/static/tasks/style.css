@@ -1,31 +1,7 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #ffffff;
-}
-
 header {
     background: #428cdc;
     color: white;
     padding: 15px;
-}
-
-header h1 {
-    margin: 0;
-}
-
-nav a {
-    color: white;
-    margin-right: 15px;
-    text-decoration: none;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-main {
-    padding: 20px;
 }
 
 footer {
@@ -33,12 +9,4 @@ footer {
     text-align: center;
     padding: 10px;
     margin-top: 20px;
-}
-
-button {
-    background-color: #428cdc;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
 }
