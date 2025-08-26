@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}タスクの作成{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'tasks/task_create.css' %}">
 <h2>新規タスク作成</h2>
 <form method="POST">
     {% csrf_token %}
@@ -22,6 +24,6 @@
             <option value="3">高</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">作成</button>
+        <button type="submit" class="form-button">作成</button>
 </form>
 {% endblock %}

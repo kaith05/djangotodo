@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}タスクの編集{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'tasks/task_update.css' %}">
 <h2>タスクの編集</h2>
 <form method="POST">
     {% csrf_token %}
@@ -22,6 +24,6 @@
             <option value="3" {% if form.priority.value == 3 %}selected{% endif %}>高</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">更新</button>
+    <button type="submit" class="form-button">更新</button>
 </form>
 {% endblock %}

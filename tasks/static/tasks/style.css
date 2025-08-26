@@ -25,10 +25,13 @@ main {
     align-items: center;
 }
 
-.create-btn {
+.btn {
     background: #428cdc;
     color: white;
     border: none;
+}
+.btn:hover {
+    background: #3069a1;
 }
 
 footer {
