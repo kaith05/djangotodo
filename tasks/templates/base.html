@@ -6,23 +6,26 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
     {% csrf_token %}
-
-    <img src="{% static 'tasks/ToDoLogo.webp' %}" alt="ToDo">
-
+    
 </head>
 <body>
+
     <header>
-        <h1>とどリスト</h1>
-        <nav>
-            <a href="{% url 'task_create' %}">新規追加</a>
-        </nav>
+        <div class="header-content">
+            <h1>とどリスト</h1>
+            <img src="{% static 'tasks/ToDoLogo.webp' %}" alt="ToDo" class="logo">
+        </div>
+        <a href="{% url 'task_create' %}">
+            <button class="create-btn">新規追加</button>
+        </a>
     </header>
 
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    <footer>
+        <p>&copy; 2023 ToDoアプリ</p>
+    </footer>
 </body>
-<footer>
-    <p>&copy; 2023 ToDoアプリ</p>
-</footer>
 </html>

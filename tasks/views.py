@@ -43,3 +43,12 @@ def task_delete(request, pk):
         task.delete()
         return redirect('task_list')
     return render(request, 'tasks/task_delete.html', {'task': task})
+
+def toggle_task_completion(request, task_id):
+    if request.method == 'POST':
+        task = Task.objects.get(id=task_id)
+        task.completed = not task.completed  # 完了状態を反転
+        task.save()
+        
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False}, status=400)
