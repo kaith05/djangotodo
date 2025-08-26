@@ -52,3 +52,8 @@ def toggle_task_completion(request, task_id):
         
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=400)
+
+def task_list(request):
+    # 優先度が高い順に並べ替え
+    tasks = Task.objects.all().order_by('-priority')  # 降順で並べ替え
+    return render(request, 'tasks/task_list.html', {'tasks': tasks})

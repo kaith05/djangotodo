@@ -22,9 +22,11 @@
 }
 
 .task-list {
+    max-width: 750px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding-left: 2rem;
 }
 
 .task-item {
